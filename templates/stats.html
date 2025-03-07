@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Statistiky</title>
+    <style>
+        .row-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+        .center-table {
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .board-container {
+            width: 30%;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back-to-game button in the top left -->
+    <div class="back-button">
+        <a href="{{ url_for('game') }}"><button>Zpět do hry</button></a>
+    </div>
+    <!-- Logout button in the top right -->
+    <div class="logout-button">
+        <a href="{{ url_for('logout') }}"><button>Odhlásit se</button></a>
+    </div>
+    
+    <h1>Leaderboard</h1>
+    
+    <!-- First three boards arranged side by side -->
+    <div class="row-container">
+        <!-- Highest Score Board -->
+        <div class="board-container">
+            <h2>Nejvyšší skóre</h2>
+            <table class="center-table" border="1">
+                <tr>
+                    <th>Pořadí</th>
+                    <th>Uživatel</th>
+                    <th>Skóre</th>
+                </tr>
+                {% for entry in score_board %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entry.username }}</td>
+                    <td>{{ entry.points }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <!-- Fewest Turns Board -->
+        <div class="board-container">
+            <h2>Nejnižší počet tahů</h2>
+            <table class="center-table" border="1">
+                <tr>
+                    <th>Pořadí</th>
+                    <th>Uživatel</th>
+                    <th>Tahy</th>
+                </tr>
+                {% for entry in turns_board %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entry.username }}</td>
+                    <td>{{ entry.turns }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <!-- Shortest Time Board -->
+        <div class="board-container">
+            <h2>Nejnižší herní čas</h2>
+            <table class="center-table" border="1">
+                <tr>
+                    <th>Pořadí</th>
+                    <th>Uživatel</th>
+                    <th>Čas (s)</th>
+                </tr>
+                {% for entry in time_board %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entry.username }}</td>
+                    <td>{{ entry.time }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+    <!-- Most Recent Board (displaying all columns) -->
+    <div class="board-container" style="width: 90%; margin: 0 auto;">
+        <h2>Nejnovější záznamy</h2>
+        <table class="center-table" border="1">
+            <tr>
+                <th>Pořadí</th>
+                <th>Uživatel</th>
+                <th>Skóre</th>
+                <th>Tahy</th>
+                <th>Čas (s)</th>
+            </tr>
+            {% for entry in recent_board %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ entry.username }}</td>
+                <td>{{ entry.points }}</td>
+                <td>{{ entry.turns }}</td>
+                <td>{{ entry.time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
+<!--| round(2)-->

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Registrace</title>
+</head>
+<body>
+    <h1>Registrace</h1>
+    <form action="{{ url_for('register') }}" method="post">
+        <input type="text" name="username" placeholder="Uživatelské jméno" required>
+        <input type="password" name="password" placeholder="Heslo" required>
+        <button type="submit">Registrovat</button>
+    </form>
+
+    <!-- Tlačítko zpět na domovskou stránku -->
+    <a href="{{ url_for('home') }}"><button type="button">Přihlásit</button></a>
+
+    {% if logged_in %}
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <a href="{{ url_for('logout') }}"><button>Odhlásit se</button></a>
+    </div>
+    {% endif %}
+</body>
+</html>

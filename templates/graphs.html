@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Grafy hráčů</title>
+    <style>
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+        .chart-box {
+            width: 30%;
+            text-align: center;
+        }
+        .full-width-chart {
+            width: 50%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back-to-game button in the top left -->
+    <div class="back-button">
+        <a href="{{ url_for('game') }}"><button>Zpět do hry</button></a>
+    </div>
+    <!-- Logout button in the top right -->
+    <div class="logout-button">
+        {% if logged_in %}
+        <a href="{{ url_for('logout') }}"><button>Odhlásit se</button></a>
+        {% endif %}
+    </div>
+    
+    <h1>Grafy nejlepších hráčů</h1>
+    
+    <!-- Row with three charts: Score, Turns, and Time -->
+    <div class="chart-container">
+        <div class="chart-box">
+            <h2>Nejvyšší skóre</h2>
+            <img src="data:image/png;base64,{{ bar_chart_score }}" alt="Graf Nejvyšší skóre">
+        </div>
+        <div class="chart-box">
+            <h2>Nejnižší počet tahů</h2>
+            <img src="data:image/png;base64,{{ bar_chart_turns }}" alt="Graf Nejnižší počet tahů">
+        </div>
+        <div class="chart-box">
+            <h2>Nejnižší herní čas</h2>
+            <img src="data:image/png;base64,{{ bar_chart_time }}" alt="Graf Nejnižší herní čas">
+        </div>
+    </div>
+    
+    <!-- Centered Pie Chart -->
+    <div class="full-width-chart">
+        <h2>Distribuce výsledků</h2>
+        <img src="data:image/png;base64,{{ pie_chart }}" alt="Koláčový graf výsledků">
+    </div>
+</body>
+</html>
+
+

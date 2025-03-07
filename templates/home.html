@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Domovská stránka</title>
+</head>
+<body>
+    <h1>Vítejte ve hře Pexeso!</h1>
+
+    <!-- Pokud je uživatel přihlášen, zobrazí tlačítka pro hru a odhlášení -->
+    {% if logged_in %}
+        <a href="{{ url_for('game') }}"><button>Hrát hru</button></a>
+        <a href="{{ url_for('logout') }}"><button>Odhlásit se</button></a>
+
+    <!-- Pokud uživatel není přihlášen, zobrazí se přihlašovací formulář -->
+    {% else %}
+        <form action="{{ url_for('login') }}" method="post">
+            <input type="text" name="username" placeholder="Uživatelské jméno" required>
+            <input type="password" name="password" placeholder="Heslo" required>
+            <button type="submit">Přihlásit se</button>
+        </form>
+
+        <!-- Tlačítko pro registraci nového uživatele -->
+        <a href="{{ url_for('register') }}"><button>Registrovat</button></a>
+
+        <!-- Zobrazení chybové hlášky, pokud je login neúspěšný -->
+        {% if error %}
+            <p style="color: red;">Špatné přihlašovací údaje</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
