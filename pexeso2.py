@@ -39,8 +39,10 @@ DONUT = 'donut'
 SQUARE = 'square'
 DIAMOND = 'diamond'
 OVAL = 'oval'
+#Ald 1
+
 ALLCOLORS = (RED, GREEN, BLUE, YELLOW, ORANGE, PURPLE, CYAN)
-ALLSHAPES = (DONUT, SQUARE, DIAMOND, OVAL)
+ALLSHAPES = (DONUT, SQUARE, DIAMOND, OVAL) #Ald 2
 assert len(ALLCOLORS) * len(ALLSHAPES) * 2 >= BOARDWIDTH * BOARDHEIGHT, "Board is too big for the number of shapes/colors defined."
 
 # Global display variable (set in main)
@@ -160,6 +162,7 @@ def drawIcon(shape, color, boxx, boxy):
         ))
     elif shape == OVAL:
         pygame.draw.ellipse(DISPLAYSURF, color, (left, top + quarter, BOXSIZE, half))
+#Ald 3
 
 def getShapeAndColor(board, boxx, boxy):
     return board[boxx][boxy]
@@ -200,6 +203,7 @@ def drawHighlightBox(boxx, boxy):
     pygame.display.update()
 
 def startGameAnimation(board):
+#ter    
     coveredBoxes = generateRevealedBoxesData(False)
     boxes = [(x, y) for x in range(BOARDWIDTH) for y in range(BOARDHEIGHT)]
     random.shuffle(boxes)

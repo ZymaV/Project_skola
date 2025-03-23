@@ -45,6 +45,7 @@ def create_color_mapping(user_list):
         mapping[user] = colors[i % len(colors)]
     return mapping
 
+# --- UPDATED BAR CHART FUNCTIONS ---
 def generate_bar_chart_score(color_mapping):
     conn = get_scores_db_connection()
     cursor = conn.cursor()
@@ -53,11 +54,12 @@ def generate_bar_chart_score(color_mapping):
     conn.close()
     names = [row['username'] for row in data]
     scores = [row['points'] for row in data]
-    # Use the provided mapping to get consistent colors.
     colors_list = [color_mapping[name] for name in names]
     
     plt.figure(figsize=(6,4))
-    plt.bar(names, scores, color=colors_list)
+    x_positions = range(len(names))  # Each entry gets its own unique x position.
+    plt.bar(x_positions, scores, color=colors_list)
+    plt.xticks(x_positions, names)   # Set x-axis labels to the usernames.
     plt.xlabel('Uživatel')
     plt.ylabel('Skóre')
     plt.title('Nejvyšší skóre')
@@ -80,7 +82,9 @@ def generate_bar_chart_turns(color_mapping):
     colors_list = [color_mapping[name] for name in names]
     
     plt.figure(figsize=(6,4))
-    plt.bar(names, turns, color=colors_list)
+    x_positions = range(len(names))
+    plt.bar(x_positions, turns, color=colors_list)
+    plt.xticks(x_positions, names)
     plt.xlabel('Uživatel')
     plt.ylabel('Tahů')
     plt.title('Nejnižší počet tahů')
@@ -103,7 +107,9 @@ def generate_bar_chart_time(color_mapping):
     colors_list = [color_mapping[name] for name in names]
     
     plt.figure(figsize=(6,4))
-    plt.bar(names, times, color=colors_list)
+    x_positions = range(len(names))
+    plt.bar(x_positions, times, color=colors_list)
+    plt.xticks(x_positions, names)
     plt.xlabel('Uživatel')
     plt.ylabel('Čas (s)')
     plt.title('Nejnižší herní čas')
@@ -157,6 +163,31 @@ def generate_pie_chart(color_mapping):
     plt.close()
     return chart_base64
 
+# New route: Admin Panel – accessible only if logged in as "admin"
+@app.route('/admin')
+def admin_panel():
+    # Check if the current user is the admin
+    if 'username' not in session or session['username'] != 'admin':
+        return redirect(url_for('home'))
+    conn = get_scores_db_connection()
+    cursor = conn.cursor()
+    # Retrieve all records from the scores table; adjust fields as needed
+    cursor.execute("SELECT id, username, points, turns, time FROM scores")
+    records = cursor.fetchall()
+    conn.close()
+    return render_template('admin.html', records=records)
+
+# New route: Delete a record – accessible only to admin
+@app.route('/admin/delete/<int:record_id>', methods=['POST'])
+def delete_record(record_id):
+    if 'username' not in session or session['username'] != 'admin':
+        return redirect(url_for('home'))
+    conn = get_scores_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM scores WHERE id = ?", (record_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('admin_panel'))
 
 # 🟢 Domovská stránka
 @app.route("/")
@@ -249,7 +280,6 @@ def stats_route():
                            time_board=time_board,
                            recent_board=recent_board)
 
-
 # 🟢 Generování grafů
 @app.route('/graphs')
 def graphs():
@@ -281,7 +311,6 @@ def graphs():
                            bar_chart_time=bar_chart_time,
                            pie_chart=pie_chart,
                            logged_in=True)
-
 
 # 🟢 Odhlášení uživatele
 @app.route("/logout")

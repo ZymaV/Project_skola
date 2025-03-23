@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <a href="{{ url_for('logout') }}"><button>Odhlásit se</button></a>
+    <a href="{{ url_for('game') }}"><button>Zpět do hry</button></a>
+    <table border="1" style="margin: auto; text-align: center;">
+        <tr>
+            <th>ID</th>
+            <th>Uživatel</th>
+            <th>Skóre</th>
+            <th>Tahy</th>
+            <th>Čas</th>
+            <th>Akce</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.username }}</td>
+            <td>{{ record.points }}</td>
+            <td>{{ record.turns }}</td>
+            <td>{{ record.time }}</td>
+            <td>
+                <form action="{{ url_for('delete_record', record_id=record.id) }}" method="post">
+                    <button type="submit">Smazat</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
