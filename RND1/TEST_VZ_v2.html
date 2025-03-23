@@ -1,0 +1,165 @@
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Zadání Výpočetka">
+    <meta name="author" content="ZýmaV">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styly3.css">
+    <title>ZEST HTML</title>
+<style type="text/css" id="operaUserStyle"></style></head>
+
+<body style="background-color:rgb(35,35,35);">
+    <header>
+         <h1>Test z HTML, CSS, JavaScript</h1>
+    </header>
+    <div class="menu">
+        <div class="dropdown">
+        <button onclick="myFunction1()" class="menubutton1" >Info</button>
+        <div id="infomenu" class="inf">
+            <a href="odkaz.html" target=”_blank”>Ůvod</a>
+            <a href="odkaz.html" target=”_blank”>Informace</a>
+            <a href="odkaz.html" target=”_blank”>objednávky</a>
+        </div>
+        </div>
+        <div class="dropdown">
+        <button onclick="myFunction2()" class="menubutton2" >Foto</button>
+        <div id="fotomenu" class="fot" >
+            <a href="odkaz.html" target=”_blank”>Fotogalerie</a>
+            <a href="odkaz.html" target=”_blank”>Odkazy</a>
+        </div>
+        </div>
+        <div class="dropdown">
+        <button onclick="myFunction3()" class="menubutton3">Kontakty</button>
+        <div id="kontaktmenu" class="kon">
+            <a href="odkaz.html" target=”_blank”>Kontakty</a>
+            <a href="odkaz.html" target=”_blank”>Adresy</a>
+        </div>
+        </div>
+    </div>
+        <div>
+        <h2><button id="but" style="vertical-align: middle;" onclick="fotki()">←</button>  <img id="image" src="Šelmy1.jpg"style="width: 300px; height: 300px;vertical-align: middle;"> <button id="but" style="vertical-align: middle;" onclick="fotky()">→</button></h2>
+        </div>
+        
+        
+    </div>
+        <div class="čudle">
+            <button id="skryte">Zobrazit skrytý text</button>
+            <p id="skrytytext" style="display: none;">Tohle je HODNĚ MOC TAJNÝ text!!!</p>
+            <br>
+            <button id="baf">Otevřít modal</button>
+            <div id="vyskakokno">
+                <div class="bububu">
+                    <p>Přejít na stránku?</p>
+                    <button id="skolaodkaz" target=>Přejít na stránku</button>
+                    <button id="close">NEIN!!</button>
+                </div>
+            </div>
+        </div>
+
+    <script>
+
+    const vyskakokno = document.getElementById("vyskakokno");
+    const baf = document.getElementById("baf");
+    const close = document.getElementById("close");
+    const skolaodkaz = document.getElementById("skolaodkaz")
+    baf.addEventListener("click", () => vyskakokno.style.display = "flex");
+    close.addEventListener("click", () => vyskakokno.style.display = "none");
+    skolaodkaz.addEventListener("click", () => window.location.href = "https://new.spskladno.cz");
+
+    const skryte = document.getElementById("skryte");
+    const skrytytext = document.getElementById("skrytytext");
+    skrytytext.style.display = "none"
+
+    skryte.addEventListener("click", function () {
+        if (skrytytext.style.display === "none") {
+            skrytytext.style.display = "block";
+        } else {
+            skrytytext.style.display = "none";
+        }
+    });
+</script>
+
+<head> 
+    <script> 
+    index=0
+    function fotky()
+    {
+    var img = document.getElementById("image");
+        if (index==5){
+            index=0}
+        index=index+1
+        if (index==1){
+            img.src="Šelmy1.jpg";}
+        else if(index==2){
+            img.src="Šelmy2.jpg";}
+        else if(index==3){
+            img.src="Šelmy3.jpg";}
+        else if(index==4){
+            img.src="Šelmy4.jpg";}
+        else if(index==5){
+            img.src="Šelmy5.jpg";}
+
+    }
+    function fotki(){
+        var img = document.getElementById("image");
+        if (index==1){
+            index=6}
+        if (index==0){
+            index=5}
+        index=index-1
+        if (index==1){
+            img.src="Šelmy1.jpg";}
+        else if(index==2){
+            img.src="Šelmy2.jpg";
+            }
+        else if(index==3){
+            img.src="Šelmy3.jpg";
+            }
+        else if(index==4){
+            img.src="Šelmy4.jpg";
+            }
+        else if(index==5){
+            img.src="Šelmy5.jpg";}
+        
+    }
+    
+    function myFunction1() {
+        document.getElementById("infomenu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.menubutton1')) {
+        var dropdowns = document.getElementsByClassName("inf");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }}}
+        if (!event.target.matches('.menubutton2')) {
+        var dropdowns = document.getElementsByClassName("fot");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }}}     
+        if (!event.target.matches('.menubutton3')) {
+        var dropdowns = document.getElementsByClassName("kon");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }}}}
+    function myFunction2() {
+        document.getElementById("fotomenu").classList.toggle("show");
+    }
+
+    function myFunction3() {
+        document.getElementById("kontaktmenu").classList.toggle("show");
+    }
+
+</script>
+</body>
+</html>

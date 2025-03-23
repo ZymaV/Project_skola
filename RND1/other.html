@@ -1,0 +1,104 @@
+<!-- Ald 1
+STAR    = 'star'    
+-->
+
+<!-- Ald 2
+ALLSHAPES = (DONUT, SQUARE, DIAMOND, OVAL, STAR)
+-->
+
+<!-- Ald 3
+    elif shape == STAR:
+        # Draw a five-pointed star.
+        center_x = left + half
+        center_y = top + half
+        outer_radius = half - 2
+        inner_radius = outer_radius * 0.5
+        points = []
+        num_points = 5
+        # Start angle offset so that one point is directly upward.
+        angle = math.pi / 2  
+        for i in range(2 * num_points):
+            r = outer_radius if i % 2 == 0 else inner_radius
+            theta = angle + i * math.pi / num_points
+            x = center_x + r * math.cos(theta)
+            y = center_y - r * math.sin(theta)
+            points.append((x, y))
+        pygame.draw.polygon(DISPLAYSURF, color, points)
+-->
+
+<!-- ter
+DISPLAYSURF.fill(BGCOLOR)
+-->
+
+<!-- style.css all
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+/* Button styles (unchanged) */
+button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Stats Page Styles */
+.row-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.center-table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+.board-container {
+    width: 30%;
+}
+
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.logout-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Graphs Page Styles */
+.chart-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.chart-box {
+    width: 30%;
+    text-align: center;
+}
+
+.full-width-chart {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+-->
+
+<!--
+Remove styles from stats.html and graphs.html
+-->
